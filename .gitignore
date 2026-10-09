@@ -1,0 +1,17 @@
+﻿# LaTeX auxiliary files (keeps your repo clean)
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.toc
+*.bcf
+*.run.xml
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/

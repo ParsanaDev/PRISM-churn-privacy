@@ -1,0 +1,87 @@
+\documentclass[sigconf,nonacm]{acmart}
+
+\usepackage{amsmath,amssymb}
+\usepackage{url}
+
+% Suppress ACM conference and copyright boilerplate to ensure strict 1-page fit
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\pagestyle{plain}
+
+\title{PRISM: Evaluating Privacy-Constrained Customer Churn Classification}
+
+% Compact author block to conserve vertical column space
+\author{Abhishek Majumdar (UG), Dev Parsana (UG), Ravi Vashi (UG), Bharath Irukulapati (GR, Lead)}
+\affiliation{%
+  \institution{Department of Computer Science, University of Victoria}
+  \city{Victoria}
+  \country{Canada}
+}
+
+\begin{document}
+
+\begin{abstract}
+Predicting customer churn is vital for subscription services, but standard pipelines rely on continuous, invasive tracking of user activity. Under strict privacy regulations and cold-start conditions, collecting granular behavioral telemetry is often infeasible. We present \textbf{PRISM} (Privacy-Restricted Information for Subscriber Modeling) to investigate churn prediction under constrained feature visibility. We measure how performance degrades as behavioral features are removed, testing whether basic, non-intrusive account metadata can reliably identify at-risk subscribers.
+Repository: \url{https://github.com/ibac03/PRISM-churn-privacy}.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+Customer retention is vital for subscription business models, as churn directly reduces recurring revenue. While early churn detection enables proactive retention offers, standard pipelines assume unrestricted access to fine-grained user telemetry, including app logs and interaction histories. However, strict privacy regulations (e.g., GDPR, CCPA) and user tracking opt-outs increasingly limit the behavioral data companies can store. This project investigates whether data mining models can accurately detect churn when restricted to non-intrusive billing and administrative attributes.
+
+\section{Motivation and Significance}
+\label{sec:motivation}
+Retaining existing customers is significantly more cost-effective than acquiring new ones \cite{gupta2005valuing}. Detecting churn without invasive tracking provides two key benefits:
+(1)~\textbf{Privacy Compliance \& Trust:} Minimizing data collection mitigates regulatory penalties and preserves consumer trust \cite{martin2017data}; and
+(2)~\textbf{Cold-Start Feasibility:} New subscribers lack interaction history, rendering telemetry-heavy models ineffective during early contract phases.
+
+\subsection{Motivating Example}
+Consider a subscriber who opts out of app tracking. Because the provider possesses no activity logs, telemetry-dependent classifiers cannot evaluate this user. If a model can reliably predict churn using only administrative terms (e.g., month-to-month contract, electronic check payment, and tenure), the provider can intervene with targeted retention offers without invading user privacy.
+
+\subsection{Gaps in Existing Solutions}
+Most churn studies engineer dense features from usage logs to maximize benchmark scores \cite{verbeke2012building}, overlooking settings where telemetry is restricted. Consequently, there is limited understanding of the performance trade-offs of using a privacy-preserving subsets of data. PRISM addresses this gap by formalizing and benchmarking churn classification across restricted visibility tiers.
+
+\section{Formal Problem Definition}
+\label{sec:formal_problem}
+Following the course taxonomy, customer churn prediction is formulated as a \textbf{Boolean Classification} task under a \textbf{Fully Supervised Learning} framework.
+
+Let $O$ denote the set of customer observations, and let $C = \{0, 1\}$ represent the target classes, where $c = 1$ (Positive Class) indicates churn and $c = 0$ (Negative Class) indicates retention. The task is to learn a mapping function:
+\begin{equation}
+    f: O \rightarrow C \quad \text{such that} \quad f(o) = c, \quad \forall o \in O, \; c \in C
+\end{equation}
+where each $o \in O$ represents a customer described across restricted attribute spaces (from basic billing records to full service configurations).
+
+\subsection{Running Example Instance}
+Consider an observation $o \in O$ representing a customer account: $\langle\text{Tenure: 2 mos}$, $\text{Contract: Monthly}$, $\text{Payment: E-check}\rangle$. The learned function maps this observation to the positive class:
+\begin{equation*}
+    f(o) = 1 \quad (\text{Customer Churn})
+\end{equation*}
+This flags an at-risk subscriber based strictly on administrative settings, requiring no private usage telemetry.
+
+\section{Team and Collaboration Justification}
+Our team comprises three undergraduate students (A. Majumdar, D. Parsana, R. Vashi) and one graduate student acting as project lead (B. Irukulapati). We formed this group around a shared interest in privacy-aware machine learning. Our collective skills across software development, data pipelines, and machine learning complement each other, enabling balanced collaboration on implementation, experimentation, and milestone deliverables.
+
+% Compressed bibliography to guarantee clean termination on Page 1
+\begin{thebibliography}{3}
+\small
+\setlength{\itemsep}{0pt}
+\bibitem{gupta2005valuing}
+S.~Gupta et~al. 2006. Modeling customer lifetime value. \emph{Journal of Service Research} 9, 2 (2006), 139--155.
+
+\bibitem{martin2017data}
+K.~Martin and N.~Murphy. 2017. The role of data privacy in marketing. \emph{J. Acad. Mark. Sci.} 45, 2 (2017), 135--155.
+
+\bibitem{verbeke2012building}
+W.~Verbeke et~al. 2012. New insights into churn prediction in the telecommunication sector. \emph{EJOR} 218, 1 (2012), 211--229.
+\end{thebibliography}
+
+\newpage
+\appendix
+\section{AI-Assisted Editing Disclosure (Category C)}
+In accordance with course guidelines for Category C (AI-Assisted Editing), generative AI was used solely to assist with LaTeX formatting, syntax adjustments, and layout condensing to satisfy the strict single-page limit. All problem formulations, conceptual ideas, team details, and definitions were developed by the team members.
+
+\subsection{Original Unedited Student Draft}
+Please refer to the original draft document submitted along with this document.
+
+\end{document}
