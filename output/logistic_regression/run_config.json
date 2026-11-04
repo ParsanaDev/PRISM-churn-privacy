@@ -1,0 +1,30 @@
+{
+  "seed": 2026,
+  "n_folds": 5,
+  "test_size": 0.2,
+  "threshold": 0.5,
+  "learning_rates": [
+    0.01,
+    0.1,
+    0.5
+  ],
+  "epochs": [
+    50,
+    200
+  ],
+  "batch_sizes": [
+    32,
+    128,
+    512
+  ],
+  "losses": [
+    "standard",
+    "hossein"
+  ],
+  "selection": "max mean CV F-measure",
+  "n_train": 5634,
+  "n_test": 1409,
+  "sklearn": "1.5.1",
+  "pandas": "2.2.2",
+  "numpy": "1.26.4"
+}
