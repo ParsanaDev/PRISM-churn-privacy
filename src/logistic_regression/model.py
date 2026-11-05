@@ -6,7 +6,7 @@ train_lr uses its loss_function argument (the original always used Hossein's err
 """
 import numpy as np
 
-from logistic_regression.config import SEED
+from cmn.config import SEED
 
 
 def sigmoid(z):

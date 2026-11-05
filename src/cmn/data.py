@@ -1,20 +1,16 @@
-import sys
-from pathlib import Path
-
+"""Loading, cleaning, preprocessing and splitting the Telco churn data (shared by all models)."""
 import pandas as pd
 from sklearn.compose import ColumnTransformer
+from sklearn.model_selection import StratifiedKFold, train_test_split
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-# make src/ importable when this file is run as a script
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from logistic_regression.config import DATA_PATH
-from tier_subset import TARGET, TIER_3
+from cmn.config import N_FOLDS, RAW_DATA_PATH, SEED, TEST_SIZE
+from cmn.tiers import TARGET, TIER_3
 
 NUMERIC = ["Tenure Months", "Monthly Charges", "Total Charges"]
 
 YES_NO = ["Yes", "No"]
-# allowed values for every categorical feature (same rules as the k-NN cleaning)
+# allowed values for every categorical feature
 VALID_VALUES = {
     "Contract": ["Month-to-month", "One year", "Two year"],
     "Payment Method": ["Mailed check", "Electronic check",
@@ -33,11 +29,8 @@ VALID_VALUES = {
 }
 
 
-def load_and_clean(path=DATA_PATH):
-    """Load the churn CSV, clean it, and return (clean_df, report).
-
-    Identical to the k-NN cleaning so both models see exactly the same rows and split.
-    """
+def load_and_clean(path=RAW_DATA_PATH):
+    """Load the churn CSV, clean it, and return (clean_df, report)."""
     df = pd.read_csv(path)
     report = {"rows_loaded": len(df)}
 
@@ -75,7 +68,10 @@ def load_and_clean(path=DATA_PATH):
 
 
 def build_preprocessor(features):
-    """z-score numerics, one-hot categoricals; fitted on training rows only."""
+    """z-score the numeric features and one-hot encode the categorical ones.
+
+    Always fitted on training rows only, so no information leaks from validation or test rows.
+    """
     numeric = [c for c in features if c in NUMERIC]
     categorical = [c for c in features if c not in NUMERIC]
     return ColumnTransformer([
@@ -83,3 +79,16 @@ def build_preprocessor(features):
         ("cat", OneHotEncoder(drop="if_binary", handle_unknown="ignore",
                               sparse_output=False), categorical),
     ])
+
+
+def holdout_split(df):
+    """Stratified 80/20 train/test split; the same split is used for every model and tier."""
+    train, test = train_test_split(df, test_size=TEST_SIZE, stratify=df[TARGET],
+                                   random_state=SEED)
+    return train.reset_index(drop=True), test.reset_index(drop=True)
+
+
+def make_folds(train):
+    """Stratified CV folds on the training set; reused for every model, tier and setting."""
+    skf = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=SEED)
+    return list(skf.split(train, train[TARGET]))

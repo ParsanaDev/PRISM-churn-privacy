@@ -1,8 +1,6 @@
-from pathlib import Path
+"""Logistic regression settings (shared seed, split and folds live in cmn/config.py)."""
+from cmn.config import OUTPUT_DIR, RESULTS_DIR
 
-SEED = 2026          # same random seed as the k-NN experiment (split, folds, batch order)
-N_FOLDS = 5          # 5-fold stratified CV on the training set
-TEST_SIZE = 0.2      # stratified hold-out test split
 THRESHOLD = 0.5      # probability threshold for predicting churn
 
 # hyperparameter grid (from the course Cross-Fold-Validation-LR notebook);
@@ -12,6 +10,5 @@ EPOCHS = [50, 200]
 BATCH_SIZES = [32, 128, 512]
 LOSSES = ["standard", "hossein"]
 
-ROOT = Path(__file__).resolve().parents[2]
-DATA_PATH = ROOT / "data" / "Telco_customer_churn.csv"
-OUTPUT_DIR = ROOT / "output" / "logistic_regression"
+LR_OUTPUT_DIR = OUTPUT_DIR / "logistic_regression"
+LR_RESULTS_DIR = RESULTS_DIR / "logistic_regression"
