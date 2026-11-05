@@ -1,4 +1,4 @@
-﻿# PRISM (Privacy-Restricted Information for Subscriber Modeling)
+# PRISM (Privacy-Restricted Information for Subscriber Modeling)
 
 Evaluating Privacy-Constrained Feature Subsets for Customer Churn Classification.
 
@@ -37,7 +37,7 @@ hold-out split and the same 5 stratified cross-validation folds** (seed `2026`):
    at the edge) and chosen by mean 5-fold CV F-measure.
 2. **Logistic regression (compared against the baseline):** the same preprocessing, trained
    with mini-batch gradient descent implemented in NumPy (adapted from the course notebook).
-   Loss function, learning rate, epochs and batch size are chosen by grid search on mean 5-fold CV
+   The loss is fixed to `hossein`; learning rate, epochs and batch size are chosen by grid search on mean 5-fold CV
    F-measure; churn is predicted when the probability is at least 0.5.
 
 Each model is then refit on the full training set with its chosen setting and scored **once** on
@@ -57,7 +57,7 @@ cleaned data (7,043 x 21)  ──►  stratified 80/20 split (seed 2026)
                                    │                         │
             for each tier ─► 5-fold stratified CV            │
                               ├─ k-NN: choose k              │
-                              └─ LR: choose loss, lr,        │
+                              └─ LR: choose lr,        │
                                       epochs, batch size     │
                                    │                         │
                          refit on all training rows ───────► score once
@@ -172,24 +172,26 @@ F-measure of the setting chosen for that tier. Full tables: `output/comparison/t
 
 | Model | Tier | Chosen setting | CV F | Precision | Recall | F-measure | ROC-AUC | PR-AUC |
 |---|---|---|---|---|---|---|---|---|
-| k-NN (baseline) | Tier 1 | k = 15 | 0.507 | 0.551 | **0.436** | 0.487 | 0.781 | 0.517 |
-| k-NN (baseline) | Tier 2 | k = 13 | 0.563 | **0.620** | **0.545** | **0.580** | 0.815 | 0.591 |
-| k-NN (baseline) | Tier 3 | k = 19 | 0.605 | 0.623 | **0.623** | **0.623** | 0.838 | 0.630 |
-| Logistic regression | Tier 1 | standard loss, lr 0.5, 200 epochs, batch 32 | **0.546** | **0.610** | 0.414 | **0.494** | **0.795** | **0.572** |
-| Logistic regression | Tier 2 | standard loss, lr 0.5, 200 epochs, batch 32 | **0.585** | 0.607 | 0.529 | 0.566 | **0.827** | **0.640** |
-| Logistic regression | Tier 3 | standard loss, lr 0.5, 200 epochs, batch 32 | **0.634** | **0.681** | 0.492 | 0.571 | **0.851** | **0.663** |
-
-Bold marks the better model per tier and metric.
+| k-NN (baseline) | Tier 1 | k = 15 | 0.507 | 0.551 | 0.436 | 0.487 | 0.781 | 0.517 |
+| k-NN (baseline) | Tier 2 | k = 13 | 0.563 | 0.620 | 0.545 | 0.580 | 0.815 | 0.591 |
+| k-NN (baseline) | Tier 3 | k = 19 | 0.605 | 0.623 | 0.623 | 0.623 | 0.838 | 0.630 |
+| Logistic regression | Tier 1 | hossein loss, lr 0.5, 200 epochs, batch 32 | 0.522 | 0.589 | 0.495 | 0.538 | 0.782 | 0.568 |
+| Logistic regression | Tier 2 | hossein loss, lr 0.5, 200 epochs, batch 32 | 0.566 | 0.608 | 0.527 | 0.564 | 0.807 | 0.629 |
+| Logistic regression | Tier 3 | hossein loss, lr 0.5, 50 epochs, batch 32 | 0.592 | 0.659 | 0.588 | 0.621 | 0.842 | 0.661 |
 
 ![Logistic regression vs k-NN baseline](evaluation/results/comparison/model_comparison.png)
 
-* **More information helps both models.** Every metric improves from Tier 1 to Tier 3, for both
-  k-NN and logistic regression.
-* **Logistic regression ranks customers better** (higher ROC-AUC and PR-AUC in every tier, and
-  higher CV F-measure), while **k-NN has the higher hold-out F-measure in Tiers 2 and 3**, because
-  logistic regression's fixed 0.5 threshold trades recall for precision.
-* The chosen logistic regression setting is at the edge of the grid (largest learning rate and
-  number of epochs), so a wider grid might improve it further.
+* LR uses a fixed loss configuration; the analysis compares models and feature tiers.
+* LR test F-measure increases from 0.538 to 0.564 to 0.621 across the three tiers.
+* LR has higher test ROC-AUC and PR-AUC than k-NN in every tier. LR has higher
+  test F-measure in Tier 1; k-NN has higher test F-measure in Tiers 2 and 3.
+* The selected LR learning rate and batch size are at the grid edges; Tiers 1 and 2
+  also select the largest epoch count.
+
+The updated LR outputs were generated with Python 3.12.7, NumPy 1.26.4,
+pandas 2.2.2 and scikit-learn 1.5.1; their settings and versions are recorded in
+`output/logistic_regression/run_config.json`. The k-NN outputs and their original
+run metadata are unchanged.
 
 ## 7. Citation
 
