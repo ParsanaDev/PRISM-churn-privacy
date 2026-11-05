@@ -11,7 +11,7 @@ THRESHOLD = 0.5      # probability threshold for predicting churn
 LEARNING_RATES = [0.01, 0.1, 0.5]
 EPOCHS = [50, 200]
 BATCH_SIZES = [32, 128, 512]
-LOSSES = ["hossein"]  # use the error function trained in the supplied course notebook
+LOSSES = ["absolute_error"]  # use the error function trained in the supplied course notebook
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_PATH = ROOT / "data" / "Telco_customer_churn.csv"
