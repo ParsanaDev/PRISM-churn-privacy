@@ -37,7 +37,7 @@ hold-out split and the same 5 stratified cross-validation folds** (seed `2026`):
    at the edge) and chosen by mean 5-fold CV F-measure.
 2. **Logistic regression (compared against the baseline):** the same preprocessing, trained
    with mini-batch gradient descent implemented in NumPy (adapted from the course notebook).
-   The loss is fixed to `hossein`; learning rate, epochs and batch size are chosen by grid search on mean 5-fold CV
+   The loss is fixed to `absolute_error`; learning rate, epochs and batch size are chosen by grid search on mean 5-fold CV
    F-measure; churn is predicted when the probability is at least 0.5.
 
 Each model is then refit on the full training set with its chosen setting and scored **once** on
@@ -175,9 +175,9 @@ F-measure of the setting chosen for that tier. Full tables: `output/comparison/t
 | k-NN (baseline) | Tier 1 | k = 15 | 0.507 | 0.551 | 0.436 | 0.487 | 0.781 | 0.517 |
 | k-NN (baseline) | Tier 2 | k = 13 | 0.563 | 0.620 | 0.545 | 0.580 | 0.815 | 0.591 |
 | k-NN (baseline) | Tier 3 | k = 19 | 0.605 | 0.623 | 0.623 | 0.623 | 0.838 | 0.630 |
-| Logistic regression | Tier 1 | hossein loss, lr 0.5, 200 epochs, batch 32 | 0.522 | 0.589 | 0.495 | 0.538 | 0.782 | 0.568 |
-| Logistic regression | Tier 2 | hossein loss, lr 0.5, 200 epochs, batch 32 | 0.566 | 0.608 | 0.527 | 0.564 | 0.807 | 0.629 |
-| Logistic regression | Tier 3 | hossein loss, lr 0.5, 50 epochs, batch 32 | 0.592 | 0.659 | 0.588 | 0.621 | 0.842 | 0.661 |
+| Logistic regression | Tier 1 | absolute_error loss, lr 0.5, 200 epochs, batch 32 | 0.522 | 0.589 | 0.495 | 0.538 | 0.782 | 0.568 |
+| Logistic regression | Tier 2 | absolute_error loss, lr 0.5, 200 epochs, batch 32 | 0.566 | 0.608 | 0.527 | 0.564 | 0.807 | 0.629 |
+| Logistic regression | Tier 3 | absolute_error loss, lr 0.5, 50 epochs, batch 32 | 0.592 | 0.659 | 0.588 | 0.621 | 0.842 | 0.661 |
 
 ![Logistic regression vs k-NN baseline](evaluation/results/comparison/model_comparison.png)
 

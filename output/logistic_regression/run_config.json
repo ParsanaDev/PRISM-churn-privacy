@@ -18,7 +18,7 @@
     512
   ],
   "losses": [
-    "hossein"
+    "absolute_error"
   ],
   "selection": "max mean CV F-measure",
   "n_train": 5634,

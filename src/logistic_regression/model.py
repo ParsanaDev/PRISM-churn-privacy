@@ -2,7 +2,7 @@
 
 Adapted from the course notebook Cross-Fold-Validation-LR.ipynb (posted on Brightspace).
 Changes: the weight vector is sized to the number of features (was fixed at 3), and
-train_lr uses its loss_function argument (the original always used Hossein's error).
+train_lr uses its loss_function argument (the original always used absolute-error loss).
 """
 import numpy as np
 
@@ -14,8 +14,8 @@ def sigmoid(z):
     return 1.0 / (1.0 + np.exp(-z))
 
 
-# Hossein's error E = (1 - y_pred) for positives, y_pred for negatives; returns dE/dz
-def loss_function_hossein(y_batch, y_pred):
+# absolute-error loss E = (1 - y_pred) for positives, y_pred for negatives; returns dE/dz
+def loss_function_absolute_error(y_batch, y_pred):
     return (1 - 2 * y_batch) * y_pred * (1 - y_pred)
 
 
@@ -24,7 +24,7 @@ def loss_function_standard(y_batch, y_pred):
     return y_pred - y_batch
 
 
-LOSS_FUNCTIONS = {"standard": loss_function_standard, "hossein": loss_function_hossein}
+LOSS_FUNCTIONS = {"standard": loss_function_standard, "absolute_error": loss_function_absolute_error}
 
 
 def train_lr(X, y_train, learning_rate, epochs, batch_size, loss_function):

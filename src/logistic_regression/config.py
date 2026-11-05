@@ -8,7 +8,7 @@ THRESHOLD = 0.5      # probability threshold for predicting churn
 LEARNING_RATES = [0.01, 0.1, 0.5]
 EPOCHS = [50, 200]
 BATCH_SIZES = [32, 128, 512]
-LOSSES = ["hossein"]
+LOSSES = ["absolute_error"]
 
 LR_OUTPUT_DIR = OUTPUT_DIR / "logistic_regression"
 LR_RESULTS_DIR = RESULTS_DIR / "logistic_regression"
