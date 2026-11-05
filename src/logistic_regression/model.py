@@ -37,9 +37,9 @@ def train_lr(X, y_train, learning_rate, epochs, batch_size, loss_function):
         for start in range(0, n, batch_size):
             idx = order[start:start + batch_size]
             X_aug = np.column_stack((X[idx], np.ones(len(idx))))  # add constant 1 (bias)
-            y_pred = sigmoid(X_aug @ w)                            # forward pass
+            y_pred = sigmoid(X_aug @ w)                            # forward pass, @ is for matrix mutiplication
             g = loss_function(y_train[idx], y_pred)
-            w -= learning_rate * (X_aug.T @ g / len(idx))          # gradient descent
+            w -= learning_rate * (X_aug.T @ g / len(idx))          # gradient descent, * is for element-wise multiplication
     return w
 
 
