@@ -18,7 +18,6 @@
     512
   ],
   "losses": [
-    "standard",
     "hossein"
   ],
   "selection": "max mean CV F-measure",
