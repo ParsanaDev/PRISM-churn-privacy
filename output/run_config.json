@@ -2,17 +2,10 @@
   "seed": 2026,
   "n_folds": 5,
   "test_size": 0.2,
-  "k_min": 1,
-  "k_max_initial": 20,
-  "k_extend_step": 10,
-  "k_cap": 100,
-  "k_max_tested": {
-    "Tier 1": 20,
-    "Tier 2": 20,
-    "Tier 3": 20
-  },
   "n_train": 5634,
   "n_test": 1409,
-  "sklearn": "1.9.1",
-  "pandas": "3.0.6"
+  "python": "3.13.18",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "sklearn": "1.9.1"
 }

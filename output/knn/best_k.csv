@@ -1,4 +1,4 @@
 tier,n_features,best_k,cv_mean_f_measure,k_min_tested,k_max_tested
-Tier 1,4,15,0.5092567452459754,1,20
+Tier 1,4,15,0.5072603124471963,1,20
 Tier 2,6,13,0.5626468703667517,1,20
 Tier 3,19,19,0.6051383988556502,1,20

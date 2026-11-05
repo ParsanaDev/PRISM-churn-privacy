@@ -50,9 +50,11 @@ def plot(results, path):
         ax.set_title(f"Hold-out {LABELS[metric]}")
         ax.set_ylim(0, 1)
         ax.grid(axis="y", alpha=0.3)
-    axes[0].legend(loc="lower right", fontsize=8)
-    fig.suptitle("Logistic regression vs k-NN baseline across privacy tiers")
-    fig.tight_layout()
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="upper center", ncol=len(MODELS), fontsize=9,
+               bbox_to_anchor=(0.5, 0.97), frameon=False)
+    fig.suptitle("Logistic regression vs k-NN baseline across privacy tiers", y=1.03)
+    fig.tight_layout(rect=(0, 0, 1, 0.92))
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
 

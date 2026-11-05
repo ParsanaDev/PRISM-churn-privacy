@@ -1,64 +1,64 @@
 tier,feature,coefficient
 Tier 1,num__Tenure Months,-0.6619722360380209
-Tier 1,cat__Contract_Month-to-month,0.5556120369827192
-Tier 1,cat__Contract_One year,-0.6412748565310545
-Tier 1,cat__Contract_Two year,-1.471074019994101
-Tier 1,cat__Payment Method_Bank transfer (automatic),-0.31029702076224497
-Tier 1,cat__Payment Method_Credit card (automatic),-0.5033796183969313
-Tier 1,cat__Payment Method_Electronic check,0.12098303214126968
-Tier 1,cat__Payment Method_Mailed check,-0.8590382222305952
-Tier 1,cat__Paperless Billing_Yes,0.7863399539153357
-Tier 1,bias,-1.5603244260746294
-Tier 2,num__Tenure Months,-1.4546059461617913
+Tier 1,cat__Contract_Month-to-month,0.5556120369827224
+Tier 1,cat__Contract_One year,-0.6412748565310517
+Tier 1,cat__Contract_Two year,-1.471074019994098
+Tier 1,cat__Payment Method_Bank transfer (automatic),-0.31029702076224386
+Tier 1,cat__Payment Method_Credit card (automatic),-0.5033796183969302
+Tier 1,cat__Payment Method_Electronic check,0.12098303214127079
+Tier 1,cat__Payment Method_Mailed check,-0.859038222230594
+Tier 1,cat__Paperless Billing_Yes,0.786339953915336
+Tier 1,bias,-1.5603244260746338
+Tier 2,num__Tenure Months,-1.4546059461617908
 Tier 2,num__Monthly Charges,0.47470618543371834
-Tier 2,num__Total Charges,0.5951170515858325
-Tier 2,cat__Contract_Month-to-month,0.439999245594634
-Tier 2,cat__Contract_One year,-0.5929173770889786
-Tier 2,cat__Contract_Two year,-1.3680936318072965
-Tier 2,cat__Payment Method_Bank transfer (automatic),-0.36606955130911456
-Tier 2,cat__Payment Method_Credit card (automatic),-0.47689264959980776
-Tier 2,cat__Payment Method_Electronic check,-0.051270437315095785
-Tier 2,cat__Payment Method_Mailed check,-0.6264261552522372
+Tier 2,num__Total Charges,0.5951170515858322
+Tier 2,cat__Contract_Month-to-month,0.4399992455946316
+Tier 2,cat__Contract_One year,-0.5929173770889813
+Tier 2,cat__Contract_Two year,-1.368093631807299
+Tier 2,cat__Payment Method_Bank transfer (automatic),-0.3660695513091168
+Tier 2,cat__Payment Method_Credit card (automatic),-0.4768926495998101
+Tier 2,cat__Payment Method_Electronic check,-0.05127043731509798
+Tier 2,cat__Payment Method_Mailed check,-0.6264261552522392
 Tier 2,cat__Paperless Billing_Yes,0.5768049162840995
-Tier 2,bias,-1.51293348223635
-Tier 3,num__Tenure Months,-1.6042486705283205
-Tier 3,num__Monthly Charges,-0.5325624210323538
-Tier 3,num__Total Charges,0.798480718948378
-Tier 3,cat__Contract_Month-to-month,0.5305559786764915
+Tier 2,bias,-1.5129334822363454
+Tier 3,num__Tenure Months,-1.6042486705283212
+Tier 3,num__Monthly Charges,-0.5325624210323532
+Tier 3,num__Total Charges,0.7984807189483786
+Tier 3,cat__Contract_Month-to-month,0.5305559786764917
 Tier 3,cat__Contract_One year,-0.3067400178904145
-Tier 3,cat__Contract_Two year,-0.8129713287971017
-Tier 3,cat__Payment Method_Bank transfer (automatic),-0.14351077848335977
-Tier 3,cat__Payment Method_Credit card (automatic),-0.21999054494075845
-Tier 3,cat__Payment Method_Electronic check,0.09478969323622077
-Tier 3,cat__Payment Method_Mailed check,-0.3200907679977275
-Tier 3,cat__Paperless Billing_Yes,0.46471724978545603
-Tier 3,cat__Gender_Male,0.04388066311781655
-Tier 3,cat__Senior Citizen_Yes,0.12934054667981276
-Tier 3,cat__Partner_Yes,0.2213706090632702
-Tier 3,cat__Dependents_Yes,-1.3879286824050565
-Tier 3,cat__Phone Service_Yes,-0.266813835942509
-Tier 3,cat__Multiple Lines_No,-0.3650074281606735
-Tier 3,cat__Multiple Lines_No phone service,-0.3193660999801524
-Tier 3,cat__Multiple Lines_Yes,0.08620128226865639
-Tier 3,cat__Internet Service_DSL,-0.6795613125247045
-Tier 3,cat__Internet Service_Fiber optic,0.4338881559337874
-Tier 3,cat__Internet Service_No,-0.3501396943480676
-Tier 3,cat__Online Security_No,-0.05168115925230704
-Tier 3,cat__Online Security_No internet service,-0.3585011259144194
-Tier 3,cat__Online Security_Yes,-0.18681734490216464
-Tier 3,cat__Online Backup_No,-0.09984871355500707
-Tier 3,cat__Online Backup_No internet service,-0.35484998356432496
-Tier 3,cat__Online Backup_Yes,-0.1416665075969193
-Tier 3,cat__Device Protection_No,0.03940706760409693
-Tier 3,cat__Device Protection_No internet service,-0.3527581054868535
-Tier 3,cat__Device Protection_Yes,-0.28722863665505394
-Tier 3,cat__Tech Support_No,-0.10313480472546088
-Tier 3,cat__Tech Support_No internet service,-0.34280868925132857
-Tier 3,cat__Tech Support_Yes,-0.12795467519169354
+Tier 3,cat__Contract_Two year,-0.8129713287971019
+Tier 3,cat__Payment Method_Bank transfer (automatic),-0.143510778483361
+Tier 3,cat__Payment Method_Credit card (automatic),-0.2199905449407595
+Tier 3,cat__Payment Method_Electronic check,0.09478969323621955
+Tier 3,cat__Payment Method_Mailed check,-0.3200907679977287
+Tier 3,cat__Paperless Billing_Yes,0.4647172497854564
+Tier 3,cat__Gender_Male,0.043880663117816576
+Tier 3,cat__Senior Citizen_Yes,0.12934054667981285
+Tier 3,cat__Partner_Yes,0.22137060906327014
+Tier 3,cat__Dependents_Yes,-1.3879286824050563
+Tier 3,cat__Phone Service_Yes,-0.2668138359425077
+Tier 3,cat__Multiple Lines_No,-0.3650074281606739
+Tier 3,cat__Multiple Lines_No phone service,-0.3193660999801511
+Tier 3,cat__Multiple Lines_Yes,0.08620128226865575
+Tier 3,cat__Internet Service_DSL,-0.6795613125247064
+Tier 3,cat__Internet Service_Fiber optic,0.4338881559337846
+Tier 3,cat__Internet Service_No,-0.3501396943480681
+Tier 3,cat__Online Security_No,-0.051681159252307915
+Tier 3,cat__Online Security_No internet service,-0.3585011259144199
+Tier 3,cat__Online Security_Yes,-0.1868173449021656
+Tier 3,cat__Online Backup_No,-0.09984871355500753
+Tier 3,cat__Online Backup_No internet service,-0.3548499835643257
+Tier 3,cat__Online Backup_Yes,-0.14166650759691984
+Tier 3,cat__Device Protection_No,0.0394070676040957
+Tier 3,cat__Device Protection_No internet service,-0.3527581054868541
+Tier 3,cat__Device Protection_Yes,-0.28722863665505516
+Tier 3,cat__Tech Support_No,-0.10313480472545919
+Tier 3,cat__Tech Support_No internet service,-0.34280868925132885
+Tier 3,cat__Tech Support_Yes,-0.12795467519169204
 Tier 3,cat__Streaming TV_No,-0.25333390782790394
-Tier 3,cat__Streaming TV_No internet service,-0.3398215397421638
-Tier 3,cat__Streaming TV_Yes,0.010787312296606316
-Tier 3,cat__Streaming Movies_No,-0.25531813746855286
-Tier 3,cat__Streaming Movies_No internet service,-0.3407489435816733
-Tier 3,cat__Streaming Movies_Yes,0.009644073744297155
-Tier 3,bias,-0.5855541927537716
+Tier 3,cat__Streaming TV_No internet service,-0.3398215397421635
+Tier 3,cat__Streaming TV_Yes,0.01078731229660615
+Tier 3,cat__Streaming Movies_No,-0.2553181374685522
+Tier 3,cat__Streaming Movies_No internet service,-0.3407489435816727
+Tier 3,cat__Streaming Movies_Yes,0.009644073744297488
+Tier 3,bias,-0.5855541927537691

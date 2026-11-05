@@ -1,7 +1,4 @@
 {
-  "seed": 2026,
-  "n_folds": 5,
-  "test_size": 0.2,
   "threshold": 0.5,
   "learning_rates": [
     0.01,
@@ -21,10 +18,5 @@
     "standard",
     "hossein"
   ],
-  "selection": "max mean CV F-measure",
-  "n_train": 5634,
-  "n_test": 1409,
-  "sklearn": "1.5.1",
-  "pandas": "2.2.2",
-  "numpy": "1.26.4"
+  "selection": "max mean CV F-measure"
 }
