@@ -19,7 +19,7 @@
 
 \begin{document}
 \begin{abstract}
-PRISM asks how much churn-prediction quality is lost when a model may only use less personal customer data. On the IBM Telco data we define three nested feature tiers (administrative terms; + billing; + demographics and services) and evaluate a $k$-NN baseline and a logistic regression (LR) model under one shared protocol: a stratified 80/20 hold-out split, the same five stratified CV folds, and selection by churn F-measure. Adding billing data raises test F-measure by 0.05--0.09, while adding demographics and services adds at most 0.06 more. Neither model wins on every metric: LR is ahead on PR-AUC in every tier, but $k$-NN has the higher ROC-AUC and F-measure in Tier~2. LR is far more sensitive to its training settings than $k$-NN is to $k$.
+PRISM asks how much churn-prediction quality is lost when a model may only use less personal customer data. On the IBM Telco data we define three nested feature tiers (administrative terms; + billing; + demographics and services) and evaluate a $k$-NN baseline and a logistic regression (LR) model under one shared protocol: a stratified 80/20 hold-out split, the same five stratified CV folds, and selection by churn F-measure. Adding billing data raises test F-measure by 0.03 (LR) to 0.09 ($k$-NN); adding demographics and services adds 0.04--0.06 more. Neither model wins on every metric: LR is ahead on PR-AUC in every tier, but $k$-NN has the higher ROC-AUC and F-measure in Tier~2. LR is far more sensitive to its training settings than $k$-NN is to $k$.
 \end{abstract}
 \keywords{customer churn, data minimization, privacy tiers, $k$-NN, logistic regression}
 \maketitle
@@ -28,10 +28,12 @@ PRISM asks how much churn-prediction quality is lost when a model may only use l
 Churn models are usually trained on everything a provider knows about its customers~\cite{mozer,neslin}, while data-minimization work asks how much input a model actually needs~\cite{goldsteen}. PRISM fixes the learning protocol and varies only the information a model may see. Unlike feature selection by predictive power~\cite{omari}, each tier is fixed \emph{before} training. Milestone~3 defined the method; this report evaluates it.
 
 \section{Research Questions}
-% RQS
+\textbf{RQ1 (Inference performance):} \emph{How does churn classification change as a model gets access to more personal tiers, and does LR outperform the $k$-NN baseline in each tier?} This measures the cost of data minimization and whether a parametric model uses limited features better than a non-parametric one. We compare both models with their best settings on the hold-out test set (Table~\ref{tab:rq1}).
+
+\textbf{RQ2 (Hyperparameter sensitivity):} \emph{How sensitive is each model to its hyperparameters in each tier?} A model that needs careful tuning is harder to deploy reliably. We report mean 5-fold CV F-measure over the $k$ sweep and the LR grid (Table~\ref{tab:rq2}).
 
 \section{Dataset}
-% DATASET
+We use the public IBM Telco Customer Churn data~\cite{ibmtelco}: 7,043 customers and 33 columns, with binary label \emph{Churn Value} (1,869 churners, 26.5\%). It is a widely used churn benchmark, it is labelled, and its columns range from administrative to personal, which is exactly what our tiers need. Tier~1 has 4 attributes (tenure, contract, payment method, paperless billing), Tier~2 adds monthly and total charges (6), and Tier~3 adds demographics and subscribed services (19). Identifiers, location and outcome-derived fields (Churn Score, CLTV, Churn Reason) are never used. The only missing values are 11 blank Total Charges, all for zero-tenure customers, which we set to 0; no duplicates were found. The same cleaning applies to every model and tier.
 
 \section{Baselines}
 % BASELINES
