@@ -43,7 +43,30 @@ We use the public IBM Telco Customer Churn data~\cite{ibmtelco}: 7,043 customers
 The data is split once, stratified on churn, into a development set (5,634) and a final test set (1,409, 374 churners); 80/20 leaves enough churners in the test set for stable precision and recall. The development set is divided into five stratified folds, and every model, tier and setting uses the same folds (seed 2026). For each setting we average the fold F-measures, pick the best, refit on the whole development set and score the test set \emph{once}; the test set never influences a choice. Churn is the positive class. Because classes are imbalanced (26.5\%), we do not report accuracy. We use F-measure for selection (it balances missed churners and false alarms), precision and recall to explain it, ROC-AUC for ranking quality across thresholds, and PR-AUC, which is more informative than ROC-AUC on a minority class.
 
 \section{Results and Discussion}
-% RESULTS
+\begin{table}[t]
+\caption{RQ1: hold-out test results (1,409 customers, 374 churners) with each model's CV-selected setting. Best per tier in bold.}\label{tab:rq1}
+\small\setlength{\tabcolsep}{2.6pt}
+\begin{tabular}{@{}llcccccc@{}}
+\toprule
+Tier & Model & Setting & P & R & F & ROC & PR\\
+\midrule
+1 & $k$-NN & $k{=}15$ & 0.551 & 0.436 & 0.487 & 0.781 & 0.517\\
+  & LR & 0.5/200/32 & \textbf{0.589} & \textbf{0.495} & \textbf{0.538} & \textbf{0.782} & \textbf{0.568}\\
+2 & $k$-NN & $k{=}13$ & \textbf{0.620} & \textbf{0.545} & \textbf{0.580} & \textbf{0.815} & 0.591\\
+  & LR & 0.5/200/32 & 0.608 & 0.527 & 0.564 & 0.807 & \textbf{0.629}\\
+3 & $k$-NN & $k{=}19$ & 0.623 & \textbf{0.623} & \textbf{0.623} & 0.838 & 0.630\\
+  & LR & 0.5/50/32 & \textbf{0.659} & 0.588 & 0.621 & \textbf{0.842} & \textbf{0.661}\\
+\bottomrule
+\end{tabular}
+\\[1pt]{\footnotesize LR setting: $\eta$/epochs/batch size.}
+\end{table}
+
+\subsection{RQ1: Performance Across Tiers}
+\textbf{Effect of tiers.} Both models improve as more information is allowed (Table~\ref{tab:rq1}). Billing data (Tier~1$\to$2) is the cheapest gain for $k$-NN (F $+0.093$, ROC-AUC $+0.034$) but small for LR (F $+0.026$). Demographics and services (Tier~2$\to$3) add $+0.043$ ($k$-NN) and $+0.057$ (LR) F. So a Tier~2 model, which uses no demographic data, keeps 93\% ($k$-NN) to 91\% (LR) of the Tier~3 F-measure.
+
+\textbf{LR vs.\ $k$-NN.} No model wins everywhere. LR has the higher PR-AUC in all three tiers, so it ranks churners better on the minority class. ROC-AUC is mixed: LR leads in Tiers~1 and~3, but by under 0.005, and $k$-NN leads in Tier~2 (0.815 vs.\ 0.807). On F-measure LR wins clearly only in Tier~1 ($+0.051$); $k$-NN wins Tier~2 ($+0.016$) and the Tier~3 gap is 0.002, i.e.\ a tie. In Tier~3 LR trades recall for precision (0.659 vs.\ 0.623).
+
+\textbf{[Attribution: Why]} Tier~1 has a single numeric attribute (tenure), so many customers sit at identical distances and $k$-NN's vote is coarse; LR instead learns one smooth trend, and its largest weights (tenure $-8.3$, one-year contract $-7.0$) match the known pattern that new, month-to-month customers churn. In Tier~2, Total Charges is roughly tenure $\times$ Monthly Charges, an interaction a linear score cannot express but local neighbourhoods capture, which explains $k$-NN's Tier~2 lead. In Tier~3 the 40 encoded dimensions are mostly one-hot indicators, which dilute Euclidean distance; LR weights each indicator separately (e.g.\ dependents $-5.0$), giving it the higher precision and PR-AUC.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{bibliography}
