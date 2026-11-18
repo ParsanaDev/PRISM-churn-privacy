@@ -183,8 +183,11 @@ F-measure of the setting chosen for that tier. Full tables: `output/comparison/t
 
 * LR uses a fixed loss configuration; the analysis compares models and feature tiers.
 * LR test F-measure increases from 0.538 to 0.564 to 0.621 across the three tiers.
-* LR has higher test ROC-AUC and PR-AUC than k-NN in every tier. LR has higher
-  test F-measure in Tier 1; k-NN has higher test F-measure in Tiers 2 and 3.
+* LR has higher test PR-AUC than k-NN in every tier. Test ROC-AUC is mixed: LR is
+  higher in Tier 1 (0.782 vs 0.781) and Tier 3 (0.842 vs 0.838), but k-NN is higher in
+  Tier 2 (0.815 vs 0.807). The Tier 1 and Tier 3 ROC-AUC gaps are under 0.005.
+* LR has higher test F-measure in Tier 1; k-NN has higher test F-measure in Tiers 2
+  and 3, although the Tier 3 gap is only 0.002.
 * The selected LR learning rate and batch size are at the grid edges; Tiers 1 and 2
   also select the largest epoch count.
 
