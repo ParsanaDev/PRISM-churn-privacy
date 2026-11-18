@@ -36,10 +36,11 @@ Churn models are usually trained on everything a provider knows about its custom
 We use the public IBM Telco Customer Churn data~\cite{ibmtelco}: 7,043 customers and 33 columns, with binary label \emph{Churn Value} (1,869 churners, 26.5\%). It is a widely used churn benchmark, it is labelled, and its columns range from administrative to personal, which is exactly what our tiers need. Tier~1 has 4 attributes (tenure, contract, payment method, paperless billing), Tier~2 adds monthly and total charges (6), and Tier~3 adds demographics and subscribed services (19). Identifiers, location and outcome-derived fields (Churn Score, CLTV, Churn Reason) are never used. The only missing values are 11 blank Total Charges, all for zero-tenure customers, which we set to 0; no duplicates were found. The same cleaning applies to every model and tier.
 
 \section{Baselines}
-% BASELINES
+\textbf{$k$-NN (baseline)~\cite{coverhart}} predicts churn by majority vote of the $k$ nearest training customers under Euclidean distance. It is non-parametric, assumes no boundary shape and has one hyperparameter, so it is a transparent reference. We sweep $k\in\{1,\dots,20\}$ (scikit-learn).
+\textbf{Logistic regression} scores a customer with $\sigma(\mathbf{w}^\top\mathbf{x}+b)$ and predicts churn at $\ge0.5$. Following the course notebook it minimises the absolute error $|y-\hat y|$ by mini-batch gradient descent written in NumPy. It is parametric and interpretable, a conceptually different competitor to $k$-NN. We search learning rate $\eta\in\{0.01,0.1,0.5\}$, epochs $T\in\{50,200\}$ and batch size $|B|\in\{32,128,512\}$ (18 settings). Both models receive the same inputs: numeric attributes z-scored and categorical attributes one-hot encoded, fitted on training rows only.
 
 \section{Evaluation Strategy and Metrics}
-% STRATEGY
+The data is split once, stratified on churn, into a development set (5,634) and a final test set (1,409, 374 churners); 80/20 leaves enough churners in the test set for stable precision and recall. The development set is divided into five stratified folds, and every model, tier and setting uses the same folds (seed 2026). For each setting we average the fold F-measures, pick the best, refit on the whole development set and score the test set \emph{once}; the test set never influences a choice. Churn is the positive class. Because classes are imbalanced (26.5\%), we do not report accuracy. We use F-measure for selection (it balances missed churners and false alarms), precision and recall to explain it, ROC-AUC for ranking quality across thresholds, and PR-AUC, which is more informative than ROC-AUC on a minority class.
 
 \section{Results and Discussion}
 % RESULTS
