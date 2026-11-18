@@ -19,13 +19,13 @@
 
 \begin{document}
 \begin{abstract}
-% ABSTRACT
+PRISM asks how much churn-prediction quality is lost when a model may only use less personal customer data. On the IBM Telco data we define three nested feature tiers (administrative terms; + billing; + demographics and services) and evaluate a $k$-NN baseline and a logistic regression (LR) model under one shared protocol: a stratified 80/20 hold-out split, the same five stratified CV folds, and selection by churn F-measure. Adding billing data raises test F-measure by 0.05--0.09, while adding demographics and services adds at most 0.06 more. Neither model wins on every metric: LR is ahead on PR-AUC in every tier, but $k$-NN has the higher ROC-AUC and F-measure in Tier~2. LR is far more sensitive to its training settings than $k$-NN is to $k$.
 \end{abstract}
 \keywords{customer churn, data minimization, privacy tiers, $k$-NN, logistic regression}
 \maketitle
 
 \section{Introduction}
-% INTRODUCTION
+Churn models are usually trained on everything a provider knows about its customers~\cite{mozer,neslin}, while data-minimization work asks how much input a model actually needs~\cite{goldsteen}. PRISM fixes the learning protocol and varies only the information a model may see. Unlike feature selection by predictive power~\cite{omari}, each tier is fixed \emph{before} training. Milestone~3 defined the method; this report evaluates it.
 
 \section{Research Questions}
 % RQS
