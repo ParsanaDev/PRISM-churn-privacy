@@ -68,6 +68,35 @@ Tier & Model & Setting & P & R & F & ROC & PR\\
 
 \textbf{[Attribution: Why]} Tier~1 has a single numeric attribute (tenure), so many customers sit at identical distances and $k$-NN's vote is coarse; LR instead learns one smooth trend, and its largest weights (tenure $-8.3$, one-year contract $-7.0$) match the known pattern that new, month-to-month customers churn. In Tier~2, Total Charges is roughly tenure $\times$ Monthly Charges, an interaction a linear score cannot express but local neighbourhoods capture, which explains $k$-NN's Tier~2 lead. In Tier~3 the 40 encoded dimensions are mostly one-hot indicators, which dilute Euclidean distance; LR weights each indicator separately (e.g.\ dependents $-5.0$), giving it the higher precision and PR-AUC.
 
+\begin{table}[t]
+\caption{RQ2: mean 5-fold CV F-measure across hyperparameters (development set only).}\label{tab:rq2}
+\small\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+ & & Tier 1 & Tier 2 & Tier 3\\
+\midrule
+$k$-NN & $k=1$ & 0.477 & 0.524 & 0.497\\
+ & odd $k\in[5,19]$ & 0.468--0.507 & 0.546--0.563 & 0.560--0.605\\
+ & even $k\in[6,20]$ & 0.430--0.473 & 0.492--0.538 & 0.510--0.597\\
+\midrule
+LR & all 18 settings & 0.000--0.522 & 0.062--0.566 & 0.000--0.592\\
+ & $\eta=0.5$ only & 0.398--0.522 & 0.544--0.566 & 0.582--0.592\\
+ & settings with $F{=}0$ & 6 & 0 & 3\\
+ & CV ROC-AUC range & 0.739--0.807 & 0.783--0.821 & 0.812--0.846\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{RQ2: Hyperparameter Sensitivity}
+\textbf{$k$-NN} is stable once $k\ge5$ (Table~\ref{tab:rq2}): within odd $k$ the CV F-measure varies by at most 0.045 in any tier, and the best $k$ (15, 13, 19) is moderately large. $k=1$ overfits and is 0.03--0.11 below the best. A clear zig-zag appears: even $k$ is always worse than its odd neighbours. \textbf{[Why]} With even $k$ a vote can tie at exactly 0.5, and our rule predicts churn only for a strict majority, so ties become ``no churn'' and recall drops.
+
+\textbf{LR} is far more sensitive. Across the grid its CV F-measure spans 0 to 0.52--0.59, and 9 of 54 tier--setting pairs predict no churner at all ($F=0$). Every collapse combines a small learning rate with a large batch, i.e.\ few, small updates; the selected settings all use $\eta=0.5$ and $|B|=32$, the edge of our grid. With $\eta=0.5$ fixed, the spread shrinks to 0.01--0.12. \textbf{[Why]} The absolute-error gradient $(1-2y)\hat y(1-\hat y)$ is at most 0.25 and pushes the majority (non-churn) class first, so a briefly trained model scores everyone below 0.5. Its CV ROC-AUC stays at 0.74 or higher even when $F=0$: the model already \emph{ranks} customers, but its scores have not crossed the fixed threshold. This makes LR's F-measure depend on the training budget more than on the features, and suggests extending the grid beyond $\eta=0.5$.
+
+\section{Conclusion}
+Restricting a churn model to administrative and billing data (Tier~2) retains over 90\% of the full-information F-measure, so most personal attributes add little. Neither model dominates: LR ranks minority churners better (PR-AUC) and wins on the smallest tier, while $k$-NN is competitive and much less sensitive to tuning.
+
+\textbf{AI use (Category D).} Claude (Anthropic) helped draft and edit this report from the team's code and output files; all numbers were checked against \texttt{output/}.
+
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{bibliography}
 
